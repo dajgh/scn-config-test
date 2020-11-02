@@ -1,0 +1,56 @@
+server:
+  port: 9002
+eureka :
+  client :
+    serviceUrl: # eureka server的路径
+      defaultZone: http://localhost:9001/eureka/  #把 eureka  集群中的所有 url 都填写了进来，也可以只写⼀台，因为各eureka server 可以同步注册表
+instance:
+  #使⽤ip注册，否则会使⽤主机名注册了（此处考虑到对⽼版本的兼容，新版本经过实验都ip）
+  prefer-ip-address : true
+  #⾃定义实例显示格式，加上版本号，便于多版本管理，注意是ip-address，早期版本是ipAddress
+  instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}:@project.version@
+spring:
+  application:
+    name: scn-gateway
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/local_test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: admin
+  cloud:
+    config:
+      name: scn-gateway
+      label: master
+      uri: http://127.0.0.1:9003
+    gateway:
+      routes:
+        - id: login-router #登录
+          uri: http://127.0.0.1:8081
+          predicates:
+            ## 注意*号,注意格式对齐,
+            - Path=/api/login
+          filters:
+            - Login
+        - id: register-router # 注册
+          uri: http://127.0.0.1:8081
+          predicates:
+            ## 注意*号,注意格式对齐,
+            - Path=/api/login/**
+          filters:
+            - RegisterIpRestrict
+        - id: code-router #验证码
+          uri: http://127.0.0.1:8082
+          predicates:
+            - Path=/api/code/**
+        - id: mail-router # 邮箱
+          uri: http://127.0.0.1:8083
+          predicates:
+            - Path=/api/mail/**
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+test:
+  config-refresh:
+    key: defaultValue
