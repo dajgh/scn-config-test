@@ -56,3 +56,7 @@ management:
 test:
   config-refresh:
     key: defaultValue
+register:
+  ip:
+    restrict:
+      count: 10
