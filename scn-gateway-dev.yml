@@ -53,5 +53,5 @@ management:
         include: "*"
 test:
   config-refresh:
-    key: defaultValue
-    #key: staticValue123
+    #key: defaultValue
+    key: staticValue123
