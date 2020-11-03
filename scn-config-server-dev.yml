@@ -12,7 +12,6 @@ instance:
 spring:
   application:
     name: scn-config-server
-  profiles: dev
   cloud:
     config:
       server:
