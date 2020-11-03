@@ -1,14 +1,9 @@
 server:
-  port: 8082
+  port: 8083
 spring:
   application:
-    name: code-service
+    name: email-service
   profiles: dev
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/local_test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: admin
   rabbitmq:
     host: 127.0.0.1
     port: 5672
@@ -20,8 +15,8 @@ spring:
       label: master
       uri: http://127.0.0.1:9003
       profile: dev
-eureka :
-  client :
+eureka:
+  client:
     serviceUrl: # eureka server的路径
       defaultZone: http://localhost:9001/eureka/  #把 eureka  集群中的所有 url 都填写了进来，也可以只写⼀台，因为各eureka server 可以同步注册表
 instance:

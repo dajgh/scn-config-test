@@ -1,0 +1,30 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: scn-eureka-01
+  profiles: dev
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    config:
+      name: scn-gateway
+      label: master
+      uri: http://127.0.0.1:9003
+      profile: dev
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url: # 客户端与EurekaServer交互的地址，如果是集群，也需要写其它Server的地址
+      defaultZone: http://localhost:9001/eureka/
+    register-with-eureka: false  # ⾃⼰就是服务不需要注册⾃⼰
+    fetch-registry: false  #⾃⼰就是服务不需要从Eureka Server 获取服务信息,默认为true，置为false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -1,25 +1,5 @@
 server:
-  port: 8082
-spring:
-  application:
-    name: code-service
-  profiles: dev
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/local_test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: admin
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
-  cloud:
-    config:
-      name: scn-gateway
-      label: master
-      uri: http://127.0.0.1:9003
-      profile: dev
+  port: 9003
 eureka :
   client :
     serviceUrl: # eureka server的路径
@@ -29,8 +9,30 @@ instance:
   prefer-ip-address : true
   #⾃定义实例显示格式，加上版本号，便于多版本管理，注意是ip-address，早期版本是ipAddress
   instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}:@project.version@
+spring:
+  application:
+    name: scn-config-server
+  profiles: dev
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/dajgh/scn-config-test.git
+          username: dajgh
+          password: bjgg555github
+          search-paths:
+            - scn-config-test
+      label: master
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+  endpoint:
+    health:
+      show-details: always
