@@ -10,7 +10,7 @@ spring:
     password: guest
   cloud:
     config:
-      name: scn-gateway
+      name: email-service
       label: master
       uri: http://127.0.0.1:9003
       profile: dev

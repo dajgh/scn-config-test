@@ -10,7 +10,7 @@ spring:
     password: guest
   cloud:
     config:
-      name: scn-gateway
+      name: scn-eureka-01
       label: master
       uri: http://127.0.0.1:9003
       profile: dev
