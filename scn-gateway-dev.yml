@@ -59,4 +59,4 @@ test:
 register:
   ip:
     restrict:
-      count: 10
+      count: 20
