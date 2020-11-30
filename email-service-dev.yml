@@ -17,7 +17,7 @@ spring:
 eureka:
   client:
     serviceUrl: # eureka server的路径
-      defaultZone: http://localhost:9001/eureka/  #把 eureka  集群中的所有 url 都填写了进来，也可以只写⼀台，因为各eureka server 可以同步注册表
+      defaultZone: http://localhost:9001/eureka/,http://localhost:9000/eureka/
 instance:
   #使⽤ip注册，否则会使⽤主机名注册了（此处考虑到对⽼版本的兼容，新版本经过实验都ip）
   prefer-ip-address : true
